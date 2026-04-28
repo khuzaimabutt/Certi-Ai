@@ -4,11 +4,6 @@ import { NextResponse } from "next/server";
 
 export const runtime = "edge";
 
-// Create an OpenAI API client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export async function POST(req: Request) {
   const { messages } = await req.json();
   console.log(messages);
@@ -16,6 +11,8 @@ export async function POST(req: Request) {
     if (!process.env.OPENAI_API_KEY) {
       return new NextResponse("missing api key", { status: 400 });
     }
+
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",

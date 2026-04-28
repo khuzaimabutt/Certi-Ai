@@ -6,9 +6,13 @@ import { revalidatePath } from "next/cache";
 import { permanentRedirect, redirect } from "next/navigation";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+let _openai: OpenAI | null = null;
+const getOpenAI = () => {
+  if (!_openai) {
+    _openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY ?? "" });
+  }
+  return _openai;
+};
 
 type Question = {
   id: number;
@@ -52,7 +56,7 @@ type AttemptedQuestion = {
 
 //     const systemMessage =
 //       "Convert test into a JSON structured format and provide data will be remained same.";
-//     const response = await openai.chat.completions.create({
+//     const response = await getOpenAI().chat.completions.create({
 //       model: "gpt-3.5-turbo-1106",
 //       messages: [
 //         {
@@ -193,7 +197,7 @@ export async function submitAiTest(attemptedQuestions: string, testId: number) {
 
     const prompt = `Please evaluate the user's attempted test questions and provide the correct answer if the user's answer is incorrect.\n\n:${attemptedQuestions}`;
     if (attemptedQuestions) {
-      const response = await openai.chat.completions.create({
+      const response = await getOpenAI().chat.completions.create({
         model: "gpt-4-turbo",
         messages: [
           {
@@ -284,7 +288,7 @@ export async function createAiTest(prevState: any, formData: FormData) {
 
     const prompt = `${test}`;
     if (test) {
-      const response = await openai.chat.completions.create({
+      const response = await getOpenAI().chat.completions.create({
         model: "gpt-3.5-turbo-0125",
         messages: [
           {
