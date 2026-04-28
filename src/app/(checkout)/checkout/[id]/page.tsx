@@ -42,7 +42,7 @@ export default async function page({ params }: any) {
   const dbUser = await getUserById(user?.id as string);
 
   const id = params.id;
-  const testDetails = (await getTestDetails(Number(id))) as Test;
+  const testDetails = (await getTestDetails(Number(id))) as unknown as Test;
   console.log(testDetails);
 
   const clientSecret = (await fetchPaymentIntent(

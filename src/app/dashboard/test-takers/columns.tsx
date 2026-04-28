@@ -123,11 +123,15 @@ export const columns: ColumnDef<TestTaker>[] = [
 
   {
     id: "actions",
-    cell: ({ row }) => {
-      const data = row.original;
-      const [opens, setOpens] = useState(false);
-      const [isLoading, setIsLoading] = useState(false);
-      return (
+    cell: ({ row }) => <TestTakerActionCell row={row} />,
+  },
+];
+
+function TestTakerActionCell({ row }: { row: { original: TestTaker } }) {
+  const data = row.original;
+  const [opens, setOpens] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  return (
         <>
           {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -171,6 +175,4 @@ export const columns: ColumnDef<TestTaker>[] = [
           </AlertDialog>
         </>
       );
-    },
-  },
-];
+}

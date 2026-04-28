@@ -107,11 +107,15 @@ export const columns: ColumnDef<Instructor>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const data = row.original;
-      const [opens, setOpens] = useState(false);
-      const [isLoading, setIsLoading] = useState(false);
-      return (
+    cell: ({ row }) => <InstructorActionCell row={row} />,
+  },
+];
+
+function InstructorActionCell({ row }: { row: { original: Instructor } }) {
+  const data = row.original;
+  const [opens, setOpens] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  return (
         <>
           {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -155,6 +159,4 @@ export const columns: ColumnDef<Instructor>[] = [
           </AlertDialog>
         </>
       );
-    },
-  },
-];
+}

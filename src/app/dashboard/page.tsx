@@ -280,7 +280,7 @@ export default async function DashboardPage() {
                   </TableHeader>
                   <TableBody>
                     {recentPurchasedTest?.map((purchase, index) => (
-                      <TableRow>
+                      <TableRow key={purchase.id ?? index}>
                         <TableCell>
                           <div className="font-medium">
                             {purchase.test.title}
@@ -311,7 +311,7 @@ export default async function DashboardPage() {
                   </TableHeader>
                   <TableBody>
                     {lastFiveTestResultByTestTaker?.map((testResult, index) => (
-                      <TableRow>
+                      <TableRow key={testResult.id ?? index}>
                         <TableCell>
                           <div className="font-medium">
                             {testResult.test.title}

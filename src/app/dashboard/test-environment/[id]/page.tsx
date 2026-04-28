@@ -25,7 +25,7 @@ export default async function AttemptTestPage({ params }: any) {
     <div>
       <div>
         <TestPage
-          questions={questions || []}
+          questions={(questions || []) as any}
           testTime={testDetails?.duration ? testDetails?.duration * 60 : 0}
           duration={testDetails?.duration || 30}
           title={testDetails?.title || ""}
